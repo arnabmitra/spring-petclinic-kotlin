@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.springframework.boot.gradle.tasks.run.BootRun
 
 
 buildscript {
@@ -55,6 +56,9 @@ tasks {
             freeCompilerArgs = listOf("-Xjsr305=strict")
         }
     }
+    withType<BootRun>{
+        systemProperty("spring.profiles.active","mysql")
+    }
 }
 
 repositories {
@@ -75,7 +79,7 @@ dependencies {
     compile("org.webjars:jquery:$jQueryVersion")
     compile("org.webjars:jquery-ui:$jQueryUIVersion")
     compile("org.webjars:bootstrap:$boostrapVersion")
-
+    testCompile ( "org.testcontainers:mysql:1.5.1")
     testCompile("org.springframework.boot:spring-boot-starter-test")
     testCompile("org.glassfish:javax.el:$elVersion")
     testCompile("org.junit.jupiter:junit-jupiter-api:$jUnitVersion")
